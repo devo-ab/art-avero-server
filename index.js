@@ -29,8 +29,16 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    const artCollection = client.db("artDB").collection("art");
+
 
     // api start
+    app.post('/crafts',async(req, res) => {
+      const newArt = req.body;
+      console.log(newArt);
+      const result = await artCollection.insertOne(newArt);
+      res.send(result)
+    });
     // api end
 
 
