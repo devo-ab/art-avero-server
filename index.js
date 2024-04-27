@@ -53,7 +53,29 @@ async function run() {
       res.send(result)
     });
 
-    
+    app.put('/crafts/:id', async(req,res) => {
+      const id = req.params.id;
+      const filter= {_id: new ObjectId(id)};
+      const options = { upsert: true};
+      const updatedArt = req.body;
+      console.log(updatedArt)
+
+      const art = {
+        $set : {
+          image: updatedArt.image,
+          item_name : updatedArt.item_name,
+          subcategory_name : updatedArt.subcategory_name,
+          price : updatedArt.price,
+          rating : updatedArt.rating,
+          customization : updatedArt.customization,
+          processing_time : updatedArt.processing_time,
+          stockStatus : updatedArt.stockStatus,
+          short_description : updatedArt.short_description,
+        }
+      }
+      const result = await artCollection.updateOne(filter,art,options);
+      res.send(result)
+    });
 
     // app.get('/art',async(req,res) => {
     //   const query = { user_email };
