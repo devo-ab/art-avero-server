@@ -27,7 +27,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     const artCollection = client.db("artDB").collection("art");
 
@@ -78,6 +78,7 @@ async function run() {
     });
 
     // app.get('/art',async(req,res) => {
+    //   const email = req.body
     //   const query = { user_email };
     //   const result = await artCollection.find(query).toArray();
     //   res.send(result)
