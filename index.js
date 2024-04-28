@@ -30,6 +30,7 @@ async function run() {
     await client.connect();
 
     const artCollection = client.db("artDB").collection("art");
+    const summerCollection = client.db("artDB").collection("summerSale");
 
 
     // api start
@@ -53,7 +54,17 @@ async function run() {
       res.send(result)
     });
 
-    
+    app.get('/my-art-craft/:email',async(req,res) => {
+      console.log(req.params.email)
+      const result = await artCollection.find({email: req.params.email}).toArray();
+      res.send(result)
+    });
+
+    app.get('/summerSale', async(req,res) => {
+      const cursor = summerCollection.find();
+      const result = await cursor.toArray();
+      res.send(result)
+    });
 
     app.put('/crafts/:id', async(req,res) => {
       const id = req.params.id;
