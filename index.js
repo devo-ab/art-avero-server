@@ -60,6 +60,14 @@ async function run() {
       res.send(result)
     });
 
+    app.delete('/craft/:id', async(req, res) => {
+      const id = req.params.id;
+      console.log(id)
+      const query = {_id : new ObjectId(id)};
+      const result = await artCollection.deleteOne(query);
+      res.send(result)
+    });
+
     app.get('/summerSale', async(req,res) => {
       const cursor = summerCollection.find();
       const result = await cursor.toArray();
