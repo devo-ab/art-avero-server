@@ -56,7 +56,7 @@ async function run() {
 
     app.get('/my-art-craft/:email',async(req,res) => {
       console.log(req.params.email)
-      const result = await artCollection.find({email: req.params.email}).toArray();
+      const result = await artCollection.find({user_email: req.params.email}).toArray();
       res.send(result)
     });
 
