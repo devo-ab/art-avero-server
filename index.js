@@ -8,6 +8,7 @@ const port = process.env.PORT || 5000;
 // middleware start
 app.use(cors());
 app.use(express.json())
+// app.use(cors({origin:["localhos","live link"]}));
 // middleware end
 
 
