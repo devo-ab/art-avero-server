@@ -27,10 +27,11 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     const artCollection = client.db("artDB").collection("art");
     const summerCollection = client.db("artDB").collection("summerSale");
+    const dataCollection = client.db("artDB").collection("categories");
 
 
     // api start
@@ -98,13 +99,19 @@ async function run() {
       res.send(result)
     });
 
-    // app.get('/art',async(req,res) => {
-    //   const email = req.body
-    //   const query = { user_email };
-    //   const result = await artCollection.find(query).toArray();
-    //   res.send(result)
-    // });
-    // api end
+    app.get('/subCategories', async(req, res) => {
+      const cursor = dataCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    
+    app.get('/subCategories/:id', async(req, res) => {
+      const id = req.params.id;
+      console.log(id)
+      const query = {_id : new ObjectId(id)};
+      const result = await dataCollection.findOne(query);
+      res.send(result)
+    });
 
 
     // Send a ping to confirm a successful connection
